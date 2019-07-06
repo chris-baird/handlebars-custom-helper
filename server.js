@@ -1,6 +1,8 @@
 // Dependencies
 var express = require('express');
 var exphbs = require('express-handlebars');
+// Require custom handlebars block helper
+const categoryHelper = require('./helpers/handlebarsCustomHelpers');
 
 // Create an instance of the express app.
 var app = express();
@@ -12,12 +14,8 @@ var PORT = process.env.PORT || 8080;
 const hbs = exphbs.create({
   defaultLayout: 'main',
   helpers: {
-    // Name of custom helper method
-    category: function(a, b, opts) {
-      if (a == b) {
-        return opts.fn(this);
-      }
-    }
+    // Telling Handlebars to use custom helper method
+    category: categoryHelper
   }
 });
 
@@ -43,6 +41,11 @@ const data = [
   },
   {
     name: 'boots',
+    category: 'gear',
+    cost: 20
+  },
+  {
+    name: 'Vest',
     category: 'gear',
     cost: 20
   }
